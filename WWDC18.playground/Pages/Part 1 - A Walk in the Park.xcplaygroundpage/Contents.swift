@@ -5,10 +5,6 @@
 As a developer, accessibility is one of the most important things to think about. I have a significant visual impairment, so it often affects me directly. This playground will simulate what its like to use an app, and to live in the world, which isn't designed to be accessible, and wll then allow you to make it more accessible!
 
 >Make sure you open the live view in order to interact with this game (open the Assistant editor if using Xcode)
-
-## Requirements
-This playground was built with Xcode 9 and Swift 4 on macOS High Sierra, and should work well with Swift Playground on iPad.
-
 */
 /*:
 ## Part 1: A Walk in the Park
@@ -20,22 +16,9 @@ We'll start by playing through this game without any handicaps. Your goal is to 
 When you're ready, you can [continue to the next part](@next)
 */
 
-import UIKit
 import PlaygroundSupport
 
-class MyViewController : UIViewController {
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .white
-
-        let label = UILabel()
-        label.frame = CGRect(x: 150, y: 200, width: 200, height: 20)
-        label.text = "Hello World!"
-        label.textColor = .black
-        
-        view.addSubview(label)
-        self.view = view
-    }
-}
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = gameView()
+
+//: [Next](@next)
