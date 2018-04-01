@@ -14,7 +14,7 @@ find the right balance for you!
 let symbols = true
 let colors = false
 /*:
-	We could also try adjusting the number of lives we start with, This may be better for younger kids. */
+	We could also try adjusting the number of lives we start with, giving us more chances to earn points. */
 let lives = 5
 /*:
 	Finally, we can try and change the speed of either how often new orbs appear or how fast the orbs move. This can be used as both an accessibility tool and as a way to adjust difficulty.*/
