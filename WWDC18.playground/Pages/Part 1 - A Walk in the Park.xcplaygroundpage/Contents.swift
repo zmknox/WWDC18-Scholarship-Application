@@ -9,7 +9,13 @@ As a developer, accessibility is one of the most important things to think about
 /*:
 ## Part 1: A Walk in the Park
 
-We'll start by playing through this game without any handicaps. Your goal is to grab powerups to increase your score, while avoiding the powerdowns. The game ends when you hit three powerdowns. Tap the screen to jump!
+We'll start by playing through this game without any handicaps. Your goal is to grab powerups to increase your score, while avoiding the powerdowns. The game ends when you hit three powerdowns.
+
+Tap the left side of the screen to move left, and the right side to move right!
+
+This is a powerup: ![powerup](colorPowerup.png)
+
+This is a powerdown: ![powerdown](colorPowerdown.png)
 
 >This part of the game was designed to be fairly simple to complete for someone with full vision, but as color is a primary differentiator (by design), it may be more difficult for some.
 

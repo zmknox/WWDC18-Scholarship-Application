@@ -62,12 +62,14 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		// Points and Lives labels
 		livesLabel.fontSize = 20
 		livesLabel.fontColor = .white
+		livesLabel.fontName = "Helvetica"
 		livesLabel.position = CGPoint(x: 10, y: self.size.height - 30)
 		livesLabel.horizontalAlignmentMode = .left
 		self.addChild(livesLabel)
 		
 		pointsLabel.fontSize = 20
 		pointsLabel.fontColor = .white
+		pointsLabel.fontName = "Helvetica"
 		pointsLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 30)
 		pointsLabel.horizontalAlignmentMode = .right
 		self.addChild(pointsLabel)
@@ -85,6 +87,19 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		player.physicsBody!.contactTestBitMask = 0x0001
 		player.physicsBody?.restitution = 0
 		self.addChild(player)
+		
+		//Creating out of frame ground to remove old orbs0x0001
+		let oob = SKShapeNode(rectOf: CGSize(width: self.size.width, height: 100))
+		oob.name = "oob"
+		oob.position = CGPoint(x: self.size.width / 2, y: -100)
+		oob.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.size.width, height: 100))
+		oob.physicsBody!.affectedByGravity = false
+		oob.physicsBody!.isDynamic = false
+		oob.physicsBody!.collisionBitMask = 0x0001
+		oob.physicsBody!.categoryBitMask = 0x0002
+		oob.physicsBody!.contactTestBitMask = 0x0001
+		oob.physicsBody?.restitution = 0
+		self.addChild(oob)
 		
 		self.physicsWorld.gravity = CGVector(dx: 0, dy: abs(gameSpeed) * -1)
 	}
@@ -107,8 +122,6 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 	}
 	
 	func didBegin(_ contact: SKPhysicsContact) {
-		print("collide?")
-		print("A: \(contact.bodyA.node?.name) B: \(contact.bodyB.node?.name)")
 		if (contact.bodyB.node?.name == "powerup" ||
 		   contact.bodyB.node?.name == "powerdown") &&
 		   contact.bodyA.node?.name == "player" {
@@ -124,6 +137,11 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 			contact.bodyB.node?.removeFromParent()
 			//sound.run(winSound)
 		}
+		else if (contact.bodyB.node?.name == "powerup" ||
+			contact.bodyB.node?.name == "powerdown") &&
+			contact.bodyA.node?.name == "oob" {
+			contact.bodyB.node?.removeFromParent()
+		}
 	}
 
 	
@@ -134,8 +152,9 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		
 		if(lives <= 0) {
 			self.physicsWorld.speed = 0.0
-			var gameOverLabel = SKLabelNode(text: "Game Over!")
+			let gameOverLabel = SKLabelNode(text: "Game Over!")
 			gameOverLabel.fontSize = 20
+			gameOverLabel.fontName = "Helvetica"
 			gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
 			gameOverLabel.horizontalAlignmentMode = .center
 			self.addChild(gameOverLabel)
@@ -186,9 +205,9 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		powerup.yScale = 0.35
 		powerup.physicsBody = SKPhysicsBody(circleOfRadius: powerup.size.width / 2)
 		powerup.physicsBody!.collisionBitMask = 0x0000
-		powerup.physicsBody!.categoryBitMask = 0x0001
+		powerup.physicsBody!.categoryBitMask = 0x0003
 		powerup.physicsBody!.restitution = 0
-		powerup.physicsBody!.contactTestBitMask = 0x0000
+		powerup.physicsBody!.contactTestBitMask = 0x0003
 		return powerup
 	}
 	
