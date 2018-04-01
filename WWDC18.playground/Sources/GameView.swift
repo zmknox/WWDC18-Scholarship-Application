@@ -42,6 +42,10 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 	var lives = 5
 	let livesLabel = SKLabelNode(text: "Lives: 0")
 	let pointsLabel = SKLabelNode(text: "Points: 0")
+	var newOrbEvery: TimeInterval = 0.5
+	var timeSinceLastOrb: TimeInterval = 0.0
+	var lastFrame: TimeInterval = 0.0
+	var gameSpeed = 6 // This is essentially the gravity of the orbs
 
 	
 	let player = SKSpriteNode(texture: playerTexture)
@@ -67,15 +71,6 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		pointsLabel.position = CGPoint(x: self.size.width - 10, y: self.size.height - 30)
 		pointsLabel.horizontalAlignmentMode = .right
 		self.addChild(pointsLabel)
-
-
-		//adding powerup
-		let powerup = createOrb(powerupTexture, position: CGPoint(x: self.size.width * 0.25, y: self.size.height * 0.5), name: "powerup")
-		self.addChild(powerup)
-		
-		//adding powerdown
-		let powerdown = createOrb(powerdownTexture, position: CGPoint(x: self.size.width * 0.75, y: self.size.height * 0.5), name: "powerdown")
-		self.addChild(powerdown)
 		
 		// Creating our player
 		player.name = "player"
@@ -91,7 +86,7 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		player.physicsBody?.restitution = 0
 		self.addChild(player)
 		
-		self.physicsWorld.gravity = CGVector(dx: 0, dy: -7.0)
+		self.physicsWorld.gravity = CGVector(dx: 0, dy: abs(gameSpeed) * -1)
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -112,19 +107,21 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 	}
 	
 	func didBegin(_ contact: SKPhysicsContact) {
-		if (contact.bodyA.node?.name == "powerup" ||
-		   contact.bodyA.node?.name == "powerdown") &&
-		   contact.bodyB.node?.name == "player" {
+		print("collide?")
+		print("A: \(contact.bodyA.node?.name) B: \(contact.bodyB.node?.name)")
+		if (contact.bodyB.node?.name == "powerup" ||
+		   contact.bodyB.node?.name == "powerdown") &&
+		   contact.bodyA.node?.name == "player" {
 			//let sound = SKAudioNode(fileNamed: "win")
 			//sound.isPositional = false
 			//self.addChild(sound)
-			if(contact.bodyA.node?.name == "powerup") {
+			if(contact.bodyB.node?.name == "powerup") {
 				points += 100
 			}
 			else {
 				lives -= 1
 			}
-			contact.bodyA.node?.removeFromParent()
+			contact.bodyB.node?.removeFromParent()
 			//sound.run(winSound)
 		}
 	}
@@ -134,6 +131,51 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		// Called before each frame is rendered
 		livesLabel.text = "Lives: \(lives)"
 		pointsLabel.text = "Points: \(points)"
+		
+		if(lives <= 0) {
+			self.physicsWorld.speed = 0.0
+			var gameOverLabel = SKLabelNode(text: "Game Over!")
+			gameOverLabel.fontSize = 20
+			gameOverLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+			gameOverLabel.horizontalAlignmentMode = .center
+			self.addChild(gameOverLabel)
+		}
+		
+		timeSinceLastOrb += (currentTime - lastFrame)
+		if(timeSinceLastOrb >= newOrbEvery) {
+			let randomLane = arc4random_uniform(3)
+			let randomOrb = arc4random_uniform(2)
+			var orbTexture: SKTexture!
+			var orbName: String
+			if(randomOrb > 0) {
+				orbTexture = powerupTexture
+				orbName = "powerup"
+			}
+			else {
+				orbTexture = powerdownTexture
+				orbName = "powerdown"
+			}
+			switch randomLane {
+			case 0:
+				self.addChild(createOrb(orbTexture,
+										position: CGPoint(x: self.size.width / 6, y: self.size.height + 50),
+										name: orbName))
+			case 1:
+				self.addChild(createOrb(orbTexture,
+										position: CGPoint(x: self.size.width / 2, y: self.size.height + 50),
+										name: orbName))
+			case 2:
+				self.addChild(createOrb(orbTexture,
+										position: CGPoint(x: self.size.width * 0.833, y: self.size.height + 50),
+										name: orbName))
+			default:
+				self.addChild(createOrb(orbTexture,
+										position: CGPoint(x: self.size.width / 2, y: self.size.height + 50),
+										name: orbName))
+			}
+			timeSinceLastOrb = 0
+		}
+		lastFrame = currentTime
 	}
 	
 	func createOrb(_ texture: SKTexture?, position: CGPoint, name: String) -> SKSpriteNode {
