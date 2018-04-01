@@ -50,8 +50,12 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 		self.physicsWorld.contactDelegate = self
 		self.backgroundColor = .black
 		
-		// Points and Lives labels
+		// Background
+		let bg = SKSpriteNode(texture: SKTexture(imageNamed: "Background"))
+		bg.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+		self.addChild(bg)
 		
+		// Points and Lives labels
 		livesLabel.fontSize = 20
 		livesLabel.fontColor = .white
 		livesLabel.position = CGPoint(x: 10, y: self.size.height - 30)
@@ -93,11 +97,15 @@ class AccessibleGameScene: SKScene, SKPhysicsContactDelegate {
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for t in touches {
 			if t.location(in: self).x < self.size.width * 0.5 {
-				player.run(SKAction.moveBy(x: self.size.width / -4, y: 0, duration: 0.2))
+				if(player.position.x >= self.size.width / 2.1) {
+					player.run(SKAction.moveBy(x: self.size.width / -3, y: 0, duration: 0.2))
+				}
 				//player.run(loseSound)
 			}
 			else {
-				player.run(SKAction.moveBy(x: self.size.width / 4, y: 0, duration: 0.2))
+				if(player.position.x <= self.size.width / 1.9) {
+					player.run(SKAction.moveBy(x: self.size.width / 3, y: 0, duration: 0.2))
+				}
 				//player.run(winSound)
 			}
 		}
