@@ -4,8 +4,7 @@
 ## Part 2: I Thought This was Easy
 */
 
-import Foundation
+import PlaygroundSupport
 
-var str = "Hello, playground"
-
+PlaygroundPage.current.liveView = gameView(accessible: false)
 //: [Next](@next)
