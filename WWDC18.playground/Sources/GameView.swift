@@ -45,7 +45,6 @@ public func gameView(colors: Bool = true, symbols: Bool = false, startingLives: 
 	scene.startingLives = startingLives
 	scene.newOrbEvery = newOrbEvery
 	scene.gameSpeed = gameSpeed
-	sceneView.showsFPS = true
 	sceneView.presentScene(scene)
 
 	

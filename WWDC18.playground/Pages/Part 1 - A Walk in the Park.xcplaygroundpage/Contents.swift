@@ -6,6 +6,7 @@
 As a developer, accessibility is one of the most important things to think about. I have a significant visual impairment, so it often affects me directly. This playground will simulate what its like to use an app, and to live in the world, which isn't designed to be accessible, and wll then allow you to make it more accessible!
 
 >Make sure you open the live view in order to interact with this game (open the Assistant editor if using Xcode)
+
 */
 /*:
 ## Part 1: A Walk in the Park
