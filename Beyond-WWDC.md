@@ -1,0 +1,6 @@
+# Beyond WWDC
+## In what ways have you considered sharing your coding knowledge and enthusiasm for computer science with others?
+
+At my university, I participate in, and am the current vice president of, a student organization known as Mason SRCT (Student-Run Computing and Technology) which strives to build open-source software projects and create great learning events for students on our school’s campus. As part of this, we help to mentor students on different new technologies and frameworks, teach software engineering workflows using version controls, issue management, and continuous integration, and give talks on everything from a new framework to open source philosophy. With all of our projects being open source, it makes it easy to show a new student examples of a typical software engineering workflow, as it's all public.
+
+One of the most important events I've mentored was Open Source Day at Mason (formerly OpenHatch at Mason). In fall 2016 and 2017, I helped interested students, primarily incoming freshmen, learn about open source software, and software engineering workflows in general. Students are broken up into smaller groups and work together using version control and other tool to create a website, then look into the broader world of open source software to find issues that they could attempt fixes for on real projects.

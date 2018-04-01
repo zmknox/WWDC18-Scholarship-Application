@@ -1,0 +1,11 @@
+# Tell us about the features and technologies you used in your Swift playground.
+
+My playground was designed to showcase how important accessibility, specifically for the visually impaired. To accomplish this, I created a fairly easy game using SpriteKit where you earn points by grabbing blue power up orbs and lose lives by grabbing red power down orbs. This was my first time ever using SpriteKit, as nearly all of my other iOS development experience lies in building UIKit based apps rather than games, but I was surprised to see how quickly it allowed me to go from having nothing to a complete game.
+
+On the second page of the playground, I replace the distinct blue and red orbs with two very similar looking gray orbs, simulating playing the game while color blind. This isn’t the only visual impairment that can affect users of software, far from it, but it is one that affects myself the most when playing games like this.
+
+On the final page, I expose various flags the user can set in the code editor to change how accessible the game is. Some of these affect what the orbs look like, but others change factors like how fast the orbs move towards the player or how many lives the player begins with. This allows the player to make the game accessible enough to playable, and can also be a good way to adjust difficulty for them. I thought it was important to include this portion of my playground as simply showing a problem, of not being able to differentiate between the orbs, isn’t very useful without providing solutions.
+
+As someone who is significantly visually impaired, the message behind this playground is very important to me. We should be designing our applications and games so that anyone can enjoy them, regardless of disability. This applies not only to color in games but also to readable screen elements for the hearing impaired, text size in any app, or even a learning disability. I implemented what I knew, vision, but the message is true across all areas of accessibility.
+
+As for resources used in the playground, I created all image assets myself using Affinity Designer and Pixelmator Pro, and created the sound effects using Logic Pro X.
